@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -26,10 +27,12 @@ import java.util.Set;
 public class Main extends Application {
 
 
-    int[][] blocksArray;
+    //int[][] blocksArray;
+    ArrayList<int[]> blocksArray;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        blocksArray = new ArrayList<>();
         FlowPane something = new FlowPane();
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(something, 300, 275));
@@ -37,7 +40,7 @@ public class Main extends Application {
         //haal de cordinaten op
         GetCords();
 
-        Node initialNode = new Node(2, 1);
+        Node initialNode = new Node(0, 0);
         Node finalNode = new Node(2, 5);
         int rows = 6;
         int cols = 7;
@@ -63,19 +66,22 @@ public class Main extends Application {
 
             for (Object o : a) {
 
-                JSONObject tutorials = (JSONObject) o;
+                JSONObject Cords = (JSONObject) o;
                 //haal de eerste coords op.
-                String Row = (String) tutorials.get("row1");
-                String Column = (String) tutorials.get("column1");
+                String Row = (String) Cords.get("row1");
+                String Column = (String) Cords.get("column1");
                 //haal de 2e coords op.
-                String Row2 = (String) tutorials.get("row2");
-                String Column2 = (String) tutorials.get("column2");
+                String Row2 = (String) Cords.get("row2");
+                String Column2 = (String) Cords.get("column2");
 
                 int iRow = Integer.parseInt(Row);
                 int iColum = Integer.parseInt(Column);
+                int iRow2 = Integer.parseInt(Row2);
+                int iColum2 = Integer.parseInt(Column2);
 
+                blocksArray.add(new int[]{iRow, iColum});
+                blocksArray.add(new int[]{iRow2, iColum2});
 
-                blocksArray = new int[][]{{iColum, iRow}};
                 //TODO er voor zorgen dat alles word toegevoegd.
             }
         }
